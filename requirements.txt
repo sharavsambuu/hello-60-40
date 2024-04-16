@@ -1,0 +1,7 @@
+norgatedata
+jupyter
+pandas
+numpy
+matplotlib
+mplfinance
+quantstats
