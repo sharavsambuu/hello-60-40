@@ -1,4 +1,16 @@
 #%%
+#
+#  60/40 portfolio on raw proxies
+#  SPY for the stocks
+#  AGG for the bonds
+#
+
+import warnings
+warnings.filterwarnings("ignore")
+def action_with_warnings():
+    warnings.warn("should not appear")
+with warnings.catch_warnings(record=True):
+    action_with_warnings()
 import norgatedata
 import quantstats        as qs
 import pandas            as pd
@@ -143,6 +155,11 @@ qs.stats.sharpe(portfolio_df['adjusted_ret'])
 
 
 #%%
+plt.plot(df['SPY_cum'])
+plt.plot(df['AGG_cum'])
+plt.plot(portfolio_df['adjusted_ret'].cumsum())
+plt.legend(['SPY raw performance', 'AGG raw performance', f"60/40 portfolio after {round(rebalancing_cost*100.0, 2)}% cost performance"])
+plt.show()
 
 
 
@@ -150,8 +167,7 @@ qs.stats.sharpe(portfolio_df['adjusted_ret'])
 
 
 #%%
-
-
+qs.reports.full(portfolio_df['adjusted_ret'])
 
 #%%
 
