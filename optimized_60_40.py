@@ -5,6 +5,12 @@
 #
 #
 
+import warnings
+warnings.filterwarnings("ignore")
+def action_with_warnings():
+    warnings.warn("should not appear")
+with warnings.catch_warnings(record=True):
+    action_with_warnings()
 import norgatedata
 import quantstats        as qs
 import pandas            as pd
@@ -233,6 +239,7 @@ plt.show()
 
 
 #%%
+qs.reports.full(portfolio_df['adjusted_ret'])
 
 
 #%%
