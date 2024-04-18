@@ -88,7 +88,7 @@ rebalancing_cost        = 0.02/100.0
 rebalancing_cost_log    = np.log(1-rebalancing_cost)
 
 previous_rebalance_date = None
-rebalance_frequency     = 'W-MON' # Weekly rebalance
+rebalance_frequency     = '3W' # rebalancing frequency
 stock_weight            = 0.6
 bond_weight             = 0.4
 portfolio_dates         = []
@@ -111,7 +111,11 @@ portfolio_df['cum'             ] = portfolio_df['log_ret'].cumsum().apply(np.exp
 portfolio_df['adjusted_cum'    ] = portfolio_df['adjusted_log_ret'].cumsum().apply(np.exp)
 portfolio_df['adjusted_ret'    ] = portfolio_df['adjusted_cum'].pct_change()
 
-portfolio_df
+plt.plot(df['SPY_cum'])
+plt.plot(df['AGG_cum'])
+plt.plot(portfolio_df['adjusted_ret'].cumsum())
+plt.legend(['SPY raw performance', 'AGG raw performance', f"60/40 portfolio after {round(rebalancing_cost*100.0, 2)}% cost performance, freq {rebalance_frequency}"])
+plt.show()
 
 
 
@@ -149,21 +153,6 @@ qs.plots.yearly_returns(portfolio_df['adjusted_ret'])
 
 #%%
 qs.stats.sharpe(portfolio_df['adjusted_ret'])
-
-
-#%%
-
-
-#%%
-plt.plot(df['SPY_cum'])
-plt.plot(df['AGG_cum'])
-plt.plot(portfolio_df['adjusted_ret'].cumsum())
-plt.legend(['SPY raw performance', 'AGG raw performance', f"60/40 portfolio after {round(rebalancing_cost*100.0, 2)}% cost performance"])
-plt.show()
-
-
-
-#%%
 
 
 #%%
